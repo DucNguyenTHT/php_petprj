@@ -25,4 +25,16 @@
                 return $this->result->execute($params);
             }
         }
+
+        public function rowCount(){
+            return $this->result->rowCount();
+        }
+
+        public function fetchData(){
+            return $this->result->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        public function fetch(){
+            return $this->result->fetch(PDO::FETCH_OBJ);
+        }
     }
