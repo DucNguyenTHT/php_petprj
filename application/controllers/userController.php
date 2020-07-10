@@ -1,7 +1,15 @@
 <?php
-    class userController{
+    class userController extends framework{
+        public function index(){
+
+        }
         public function userMethod()
         {
-            echo "userMethod";
+            $myModel = $this->Model("userModel");
+            if($myModel->mydata()){
+                echo "User Has been register successfull";
+            }else{
+                echo "have some ISSUE";
+            }
         }
     }
