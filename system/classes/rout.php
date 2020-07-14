@@ -1,7 +1,7 @@
 <?php
     class rout{
         //Default Controller,Method,Params
-        public $controller = "welcome";
+        public $controller = "accountController";
         public $method     = "index";
         public $params     = [];
 

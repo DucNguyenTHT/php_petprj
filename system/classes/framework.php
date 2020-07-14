@@ -20,9 +20,9 @@
 
         public function input($inputName){
             if($_SERVER['REQUEST_METHOD']=="POST"||$_SERVER['REQUEST_METHOD']=="post"){
-                return trim($_POST[$inputName]);
+                return trim(strip_tags($_POST[$inputName]));
             }else if($_SERVER['REQUEST_METHOD']=="GET"||$_SERVER['REQUEST_METHOD']=="get"){
-                return trim($_GET[$inputName]);
+                return trim(strip_tags($_GET[$inputName]));
             }
         }
 
@@ -32,5 +32,45 @@
             }else{
                 echo "$helperfile.php not found<br>";
             }
+        }
+
+        public function setSession($sessionName, $sessionValue){
+            if(!empty($sessionName) && !empty($sessionValue)){
+                $_SESSION[$sessionName] = $sessionValue;
+            }
+        }
+
+        public function getSession($sessionName){
+            if(!empty($sessionName)){
+                return $_SESSION[$sessionName];
+            }
+        }
+
+        public function unsetSession($sessionName){
+            if(!empty($sessionName)){
+                unset($_SESSION[$sessionName]);
+            }
+        }
+
+        public function destroySession(){
+            session_destroy();
+        }
+
+        public function setFlash($sessionName,$msg){
+            if(!empty($sessionName) && !empty($msg)){
+                $_SESSION[$sessionName] = $msg;
+            }
+        }
+
+        public function flash($sessionName,$className){
+            if(!empty($sessionName) && !empty($className)){
+                $msg = $_SESSION[$sessionName];
+                echo "<div class=\" $className \">{$_SESSION[$sessionName]}</div>";
+                unset($_SESSION[$sessionName]);
+            }
+        }
+
+        public function redirect($path){
+            header("location:".BASE."/".$path);
         }
     }
