@@ -9,16 +9,17 @@
         <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
+        <?php if(!$this->getSession('userId')):?>
         <li class="nav-item">
         <a class="nav-link" href="<?php echo BASE."/accountController";?>">Register</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="<?php echo BASE."/accountController/loginForm";?>">Login</a>
         </li>
+        <?php endif;?>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
+        <?php if($this->getSession('userId')):?>
+        <ul class='my-2 my-lg-0'><a href="<?php echo BASE.'/profile/logout'?>" class='btn btn-success'>Logout</a></ul>
+        <?php endif; ?>
     </div>
     </nav>

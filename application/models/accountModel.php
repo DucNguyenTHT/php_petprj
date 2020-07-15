@@ -19,4 +19,22 @@
                 return false;
             }
         }
+
+        public function userlogin($email,$password){
+            $sql = 'SELECT * from `users` where email = ?';
+            if($this->Query($sql,[$email])){
+                if($this->rowCount() > 0){
+                    $row = $this->fetch();
+                    $dbPassword = $row->password;
+                    $userId = $row->id;
+                    if(password_verify($password,$dbPassword)){
+                        return ['status' => 'ok','data'=> $userId];
+                    }else{
+                        return ['status'=> 'passwordNotMacthed'];
+                    }
+                }else {
+                    return ['status' => 'emailNotFound'];
+                }
+            }
+        }
     }

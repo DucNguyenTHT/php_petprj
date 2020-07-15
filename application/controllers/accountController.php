@@ -46,7 +46,7 @@
                 $data = [$userData['fullName'],$userData['email'],$pass];
                 if($this->accountModel->createAccount($data)){
                     $this->setFlash('accountCreated','your account have been created succcess');
-                    $this->setSession('userID',6);
+                    // $this->setSession('userID',6);
                     // $this->loginForm();
                     $this->redirect("accountController/loginForm");
                 }else{
@@ -55,6 +55,41 @@
             }else{
                 $this->view('signup',$userData);
             }
+        }
 
+        public function userLogin(){
+            $userData = [
+                'email'        => $this->input('email'),
+                'password'     => $this->input('password'),
+                'emailError'   => '',
+                'passwordErro' => ''
+            ];
+            if(empty($userData['email'])){
+                $userData['emailErro']= 'Email is required';
+            }else{
+
+            }
+
+            if(empty($userData['password'])){
+                $userData['passwordErro']= 'Password is required';
+            }else{
+
+            }
+
+            if(empty($userData['emailError']) && empty($userData['passwordErro'])){
+                $result = $this->accountModel->userLogin($userData['email'], $userData['password']);
+                if($result['status'] === 'emailNotFound'){
+                    $userData['emailError'] = "Sorry invalid email";
+                    $this->View('login',$userData);
+                }else if($result['status'] === 'passwordNotMacthed'){
+                    $userData['passwordErro'] = "passwordNotMacthed";
+                    $this->View('login',$userData);
+                }else if($result['status'] === 'ok'){
+                    $this->setSession('userId',$result['data']);
+                    $this->redirect("profile");
+                }
+            }else{
+                $this->View('login',$userData);
+            }
         }
     }

@@ -1,4 +1,5 @@
 <?php
+    error_reporting(0);
     class framework{
         public function View($viewfile, $data = []){
             if(file_exists("../application/views/$viewfile.php")){
@@ -65,7 +66,7 @@
         public function flash($sessionName,$className){
             if(!empty($sessionName) && !empty($className)){
                 $msg = $_SESSION[$sessionName];
-                echo "<div class=\" $className \">{$_SESSION[$sessionName]}</div>";
+                echo "<div class=\" $className \">{$msg}</div>";
                 unset($_SESSION[$sessionName]);
             }
         }
